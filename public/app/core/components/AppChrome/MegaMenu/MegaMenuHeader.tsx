@@ -5,7 +5,7 @@ import { IconButton, Stack, ToolbarButton, useTheme2 } from '@grafana/ui';
 import { useGrafana } from 'app/core/context/GrafanaContext';
 import { t } from 'app/core/internationalization';
 
-import { Branding } from '../../Branding/Branding';
+// import { Branding } from '../../Branding/Branding';
 import { OrganizationSwitcher } from '../OrganizationSwitcher/OrganizationSwitcher';
 import { TOP_BAR_LEVEL_HEIGHT } from '../types';
 
@@ -33,7 +33,7 @@ export function MegaMenuHeader({ handleMegaMenu, handleDockedMenu, onClose }: Pr
           onClick={handleMegaMenu}
           tooltip={t('navigation.megamenu.close', 'Close menu')}
         >
-          <Branding.MenuLogo className={styles.img} />
+          {/* <Branding.MenuLogo className={styles.img} /> */}
         </ToolbarButton>
         <OrganizationSwitcher />
       </Stack>

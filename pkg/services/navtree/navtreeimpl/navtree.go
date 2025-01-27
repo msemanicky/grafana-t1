@@ -81,24 +81,24 @@ func (s *ServiceImpl) GetNavTree(c *contextmodel.ReqContext, prefs *pref.Prefere
 	hasAccess := ac.HasAccess(s.accessControl, c)
 	treeRoot := &navtree.NavTreeRoot{}
 
-	treeRoot.AddSection(s.getHomeNode(c, prefs))
+	// treeRoot.AddSection(s.getHomeNode(c, prefs))
 
-	if hasAccess(ac.EvalPermission(dashboards.ActionDashboardsRead)) {
-		starredItemsLinks, err := s.buildStarredItemsNavLinks(c)
-		if err != nil {
-			return nil, err
-		}
+	// if hasAccess(ac.EvalPermission(dashboards.ActionDashboardsRead)) {
+	// 	starredItemsLinks, err := s.buildStarredItemsNavLinks(c)
+	// 	if err != nil {
+	// 		return nil, err
+	// 	}
 
-		treeRoot.AddSection(&navtree.NavLink{
-			Text:           "Starred",
-			Id:             "starred",
-			Icon:           "star",
-			SortWeight:     navtree.WeightSavedItems,
-			Children:       starredItemsLinks,
-			EmptyMessageId: "starred-empty",
-			Url:            s.cfg.AppSubURL + "/dashboards?starred",
-		})
-	}
+	// 	treeRoot.AddSection(&navtree.NavLink{
+	// 		Text:           "Starred",
+	// 		Id:             "starred",
+	// 		Icon:           "star",
+	// 		SortWeight:     navtree.WeightSavedItems,
+	// 		Children:       starredItemsLinks,
+	// 		EmptyMessageId: "starred-empty",
+	// 		Url:            s.cfg.AppSubURL + "/dashboards?starred",
+	// 	})
+	// }
 
 	if c.IsPublicDashboardView() || hasAccess(ac.EvalAny(
 		ac.EvalPermission(dashboards.ActionFoldersRead), ac.EvalPermission(dashboards.ActionFoldersCreate),
@@ -119,31 +119,31 @@ func (s *ServiceImpl) GetNavTree(c *contextmodel.ReqContext, prefs *pref.Prefere
 		treeRoot.AddSection(dashboardLink)
 	}
 
-	if s.cfg.ExploreEnabled && hasAccess(ac.EvalPermission(ac.ActionDatasourcesExplore)) {
-		exploreChildNavLinks := s.buildExploreNavLinks(c)
-		treeRoot.AddSection(&navtree.NavLink{
-			Text:       "Explore",
-			Id:         navtree.NavIDExplore,
-			SubTitle:   "Explore your data",
-			Icon:       "compass",
-			SortWeight: navtree.WeightExplore,
-			Url:        s.cfg.AppSubURL + "/explore",
-			Children:   exploreChildNavLinks,
-		})
-	}
+	// if s.cfg.ExploreEnabled && hasAccess(ac.EvalPermission(ac.ActionDatasourcesExplore)) {
+	// 	exploreChildNavLinks := s.buildExploreNavLinks(c)
+	// 	treeRoot.AddSection(&navtree.NavLink{
+	// 		Text:       "Explore",
+	// 		Id:         navtree.NavIDExplore,
+	// 		SubTitle:   "Explore your data",
+	// 		Icon:       "compass",
+	// 		SortWeight: navtree.WeightExplore,
+	// 		Url:        s.cfg.AppSubURL + "/explore",
+	// 		Children:   exploreChildNavLinks,
+	// 	})
+	// }
 
 	if s.cfg.ProfileEnabled && c.IsSignedIn {
 		treeRoot.AddSection(s.getProfileNode(c))
 	}
 
-	_, uaIsDisabledForOrg := s.cfg.UnifiedAlerting.DisabledOrgs[c.SignedInUser.GetOrgID()]
-	uaVisibleForOrg := s.cfg.UnifiedAlerting.IsEnabled() && !uaIsDisabledForOrg
+	// _, uaIsDisabledForOrg := s.cfg.UnifiedAlerting.DisabledOrgs[c.SignedInUser.GetOrgID()]
+	// uaVisibleForOrg := s.cfg.UnifiedAlerting.IsEnabled() && !uaIsDisabledForOrg
 
-	if uaVisibleForOrg {
-		if alertingSection := s.buildAlertNavLinks(c); alertingSection != nil {
-			treeRoot.AddSection(alertingSection)
-		}
-	}
+	// if uaVisibleForOrg {
+	// 	if alertingSection := s.buildAlertNavLinks(c); alertingSection != nil {
+	// 		treeRoot.AddSection(alertingSection)
+	// 	}
+	// }
 
 	if connectionsSection := s.buildDataConnectionsNavLink(c); connectionsSection != nil {
 		treeRoot.AddSection(connectionsSection)
@@ -172,17 +172,17 @@ func (s *ServiceImpl) GetNavTree(c *contextmodel.ReqContext, prefs *pref.Prefere
 		treeRoot.RemoveSectionByID(navtree.NavIDCfg)
 	}
 
-	if s.features.IsEnabled(c.Req.Context(), featuremgmt.FlagPinNavItems) && c.IsSignedIn {
-		treeRoot.AddSection(&navtree.NavLink{
-			Text:           "Bookmarks",
-			Id:             navtree.NavIDBookmarks,
-			Icon:           "bookmark",
-			SortWeight:     navtree.WeightBookmarks,
-			Children:       []*navtree.NavLink{},
-			EmptyMessageId: "bookmarks-empty",
-			Url:            s.cfg.AppSubURL + "/bookmarks",
-		})
-	}
+	// if s.features.IsEnabled(c.Req.Context(), featuremgmt.FlagPinNavItems) && c.IsSignedIn {
+	// 	treeRoot.AddSection(&navtree.NavLink{
+	// 		Text:           "Bookmarks",
+	// 		Id:             navtree.NavIDBookmarks,
+	// 		Icon:           "bookmark",
+	// 		SortWeight:     navtree.WeightBookmarks,
+	// 		Children:       []*navtree.NavLink{},
+	// 		EmptyMessageId: "bookmarks-empty",
+	// 		Url:            s.cfg.AppSubURL + "/bookmarks",
+	// 	})
+	// }
 
 	return treeRoot, nil
 }
@@ -362,32 +362,32 @@ func (s *ServiceImpl) buildDashboardNavLinks(c *contextmodel.ReqContext) []*navt
 			})
 		}
 
-		if s.cfg.SnapshotEnabled && hasAccess(ac.EvalPermission(dashboards.ActionSnapshotsRead)) {
-			dashboardChildNavs = append(dashboardChildNavs, &navtree.NavLink{
-				Text:     "Snapshots",
-				SubTitle: "Interactive, publicly available, point-in-time representations of dashboards",
-				Id:       "dashboards/snapshots",
-				Url:      s.cfg.AppSubURL + "/dashboard/snapshots",
-				Icon:     "camera",
-			})
-		}
+		// if s.cfg.SnapshotEnabled && hasAccess(ac.EvalPermission(dashboards.ActionSnapshotsRead)) {
+		// 	dashboardChildNavs = append(dashboardChildNavs, &navtree.NavLink{
+		// 		Text:     "Snapshots",
+		// 		SubTitle: "Interactive, publicly available, point-in-time representations of dashboards",
+		// 		Id:       "dashboards/snapshots",
+		// 		Url:      s.cfg.AppSubURL + "/dashboard/snapshots",
+		// 		Icon:     "camera",
+		// 	})
+		// }
 
-		dashboardChildNavs = append(dashboardChildNavs, &navtree.NavLink{
-			Text:     "Library panels",
-			SubTitle: "Reusable panels that can be added to multiple dashboards",
-			Id:       "dashboards/library-panels",
-			Url:      s.cfg.AppSubURL + "/library-panels",
-			Icon:     "library-panel",
-		})
+		// dashboardChildNavs = append(dashboardChildNavs, &navtree.NavLink{
+		// 	Text:     "Library panels",
+		// 	SubTitle: "Reusable panels that can be added to multiple dashboards",
+		// 	Id:       "dashboards/library-panels",
+		// 	Url:      s.cfg.AppSubURL + "/library-panels",
+		// 	Icon:     "library-panel",
+		// })
 
-		if s.cfg.PublicDashboardsEnabled {
-			dashboardChildNavs = append(dashboardChildNavs, &navtree.NavLink{
-				Text: "Public dashboards",
-				Id:   "dashboards/public",
-				Url:  s.cfg.AppSubURL + "/dashboard/public",
-				Icon: "library-panel",
-			})
-		}
+		// if s.cfg.PublicDashboardsEnabled {
+		// 	dashboardChildNavs = append(dashboardChildNavs, &navtree.NavLink{
+		// 		Text: "Public dashboards",
+		// 		Id:   "dashboards/public",
+		// 		Url:  s.cfg.AppSubURL + "/dashboard/public",
+		// 		Icon: "library-panel",
+		// 	})
+		// }
 
 		if s.features.IsEnabled(c.Req.Context(), featuremgmt.FlagDashboardRestore) && (c.SignedInUser.GetOrgRole() == org.RoleAdmin || c.IsGrafanaAdmin) {
 			dashboardChildNavs = append(dashboardChildNavs, &navtree.NavLink{

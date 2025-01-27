@@ -46,7 +46,7 @@ export const SingleTopBar = memo(function SingleTopBar({
   const navIndex = useSelector((state) => state.navIndex);
 
   const helpNode = cloneDeep(navIndex['help']);
-  const enrichedHelpNode = helpNode ? enrichHelpItem(helpNode) : undefined;
+  // const enrichedHelpNode = helpNode ? enrichHelpItem(helpNode) : undefined;
   const profileNode = navIndex['profile'];
   const homeNav = useSelector((state) => state.navIndex)[HOME_NAV_ID];
   const breadcrumbs = buildBreadcrumbs(sectionNav, pageNav, homeNav);
@@ -75,11 +75,11 @@ export const SingleTopBar = memo(function SingleTopBar({
         <TopSearchBarCommandPaletteTrigger />
         {unifiedHistoryEnabled && <HistoryContainer />}
         <QuickAdd />
-        {enrichedHelpNode && (
+        {/* {enrichedHelpNode && (
           <Dropdown overlay={() => <TopNavBarMenu node={enrichedHelpNode} />} placement="bottom-end">
             <ToolbarButton iconOnly icon="question-circle" aria-label="Help" />
           </Dropdown>
-        )}
+        )} */}
         {config.newsFeedEnabled && <NewsContainer />}
         <ToolbarButton
           icon="monitor"
