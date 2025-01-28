@@ -26,14 +26,14 @@ export const NoDataSourceCallToAction = () => {
     <>
       <Icon name="rocket" />
       <> ProTip: You can also define data sources through configuration files. </>
-      <a
+      {/* <a
         href="http://docs.grafana.org/administration/provisioning/?utm_source=explore#data-sources"
         target="_blank"
         rel="noreferrer"
         className="text-link"
       >
         Learn more
-      </a>
+      </a> */}
     </>
   );
 

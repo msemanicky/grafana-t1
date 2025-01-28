@@ -227,9 +227,6 @@ export const TeamList = ({
           >
             <Trans i18nKey="teams.empty-state.pro-tip">
               Assign folder and dashboard permissions to teams instead of users to ease administration.{' '}
-              <TextLink external href="https://grafana.com/docs/grafana/latest/administration/team-management">
-                Learn more
-              </TextLink>
             </Trans>
           </EmptyState>
         ) : (

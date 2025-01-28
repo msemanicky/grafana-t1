@@ -260,21 +260,21 @@ export function getNavSubTitle(navId: string | undefined) {
     case 'teams':
       return t('nav.teams.subtitle', 'Groups of users that have common dashboard and permission needs');
     case 'plugins':
-      return t('nav.plugins.subtitle', 'Extend the Grafana experience with plugins');
+      return t('nav.plugins.subtitle', 'Extend the experience with plugins');
     case 'org-settings':
       return t('nav.org-settings.subtitle', 'Manage preferences across an organization');
     case 'apikeys':
       return t('nav.api-keys.subtitle', 'Manage and create API keys that are used to interact with Grafana HTTP APIs');
     case 'serviceaccounts':
-      return t('nav.service-accounts.subtitle', 'Use service accounts to run automated workloads in Grafana');
+      return t('nav.service-accounts.subtitle', 'Use service accounts to run automated workloads');
     case 'groupsync':
       return t('nav.groupsync.subtitle', 'Manage mappings of Identity Provider groups to Grafana Roles');
     case 'global-users':
-      return t('nav.global-users.subtitle', 'Manage users in Grafana');
+      return t('nav.global-users.subtitle', 'Manage users');
     case 'global-orgs':
-      return t('nav.global-orgs.subtitle', 'Isolated instances of Grafana running on the same server');
+      return t('nav.global-orgs.subtitle', 'Isolated instances running on the same server');
     case 'server-settings':
-      return t('nav.server-settings.subtitle', 'View the settings defined in your Grafana config');
+      return t('nav.server-settings.subtitle', 'View the settings defined in your config');
     case 'storage':
       return t('nav.storage.subtitle', 'Manage file storage');
     case 'migrate-to-cloud':
@@ -290,7 +290,7 @@ export function getNavSubTitle(navId: string | undefined) {
         'Manage server-wide settings and access to resources such as organizations, users, and licenses'
       );
     case 'cfg/general':
-      return t('nav.config-general.subtitle', 'Manage default preferences and settings across Grafana');
+      return t('nav.config-general.subtitle', 'Manage default preferences and settings');
     case 'cfg/plugins':
       return t('nav.config-plugins.subtitle', 'Install plugins and define the relationships between data');
     case 'cfg/access':

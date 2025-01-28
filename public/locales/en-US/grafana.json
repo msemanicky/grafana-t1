@@ -114,7 +114,6 @@
       "users-button": "Manage users"
     },
     "settings": {
-      "info-description": "These system settings are defined in grafana.ini or custom.ini (or overridden in ENV variables). To change these you currently need to restart Grafana."
     },
     "upgrade-info": {
       "title": "Enterprise license"
@@ -758,9 +757,7 @@
   "connections": {
     "connect-data": {
       "category-header-label": "Data sources",
-      "empty-message": "No results matching your query were found",
-      "request-data-source": "Request a new data source",
-      "roadmap": "View roadmap"
+      "empty-message": "No results matching your query were found"
     },
     "search": {
       "placeholder": "Search all"
@@ -1079,7 +1076,6 @@
   "data-source-list": {
     "empty-state": {
       "button-title": "Add data source",
-      "pro-tip": "You can also define data sources through configuration files. <2>Learn more</2>",
       "title": "No data sources defined"
     }
   },
@@ -1359,7 +1355,7 @@
       "skip-button": "Skip",
       "submit-button": "Submit"
     },
-    "contact-admin": "Did you forget your username or email? Contact your Grafana administrator.",
+    "contact-admin": "Did you forget your username or email? Contact your administrator.",
     "email-sent": "An email with a reset link has been sent to the email address. You should receive it shortly.",
     "reset-password-header": "Reset password",
     "send-email-button": "Send reset email"
@@ -2149,7 +2145,7 @@
       "title": "Users and access"
     },
     "config-general": {
-      "subtitle": "Manage default preferences and settings across Grafana",
+      "subtitle": "Manage default preferences and settings",
       "title": "General"
     },
     "config-plugins": {
@@ -2211,11 +2207,11 @@
       "title": "Frontend"
     },
     "global-orgs": {
-      "subtitle": "Isolated instances of Grafana running on the same server",
+      "subtitle": "Isolated instances running on the same server",
       "title": "Organizations"
     },
     "global-users": {
-      "subtitle": "Manage users in Grafana",
+      "subtitle": "Manage users",
       "title": "Users"
     },
     "grafana-quaderno": {
@@ -2299,7 +2295,7 @@
       "title": "Playlists"
     },
     "plugins": {
-      "subtitle": "Extend the Grafana experience with plugins",
+      "subtitle": "Extend the experience with plugins",
       "title": "Plugins"
     },
     "private-data-source-connections": {
@@ -2341,11 +2337,11 @@
       "title": "Search dashboards"
     },
     "server-settings": {
-      "subtitle": "View the settings defined in your Grafana config",
+      "subtitle": "View the settings defined in your config",
       "title": "Settings"
     },
     "service-accounts": {
-      "subtitle": "Use service accounts to run automated workloads in Grafana",
+      "subtitle": "Use service accounts to run automated workloads",
       "title": "Service accounts"
     },
     "setup-guide": {
@@ -3271,7 +3267,7 @@
     "empty-state": {
       "button-title": "New team",
       "message": "No teams found",
-      "pro-tip": "Assign folder and dashboard permissions to teams instead of users to ease administration. <2>Learn more</2>",
+      "pro-tip": "Assign folder and dashboard permissions to teams instead of users to ease administration.",
       "title": "You haven't created any teams yet"
     }
   },

@@ -4,7 +4,8 @@ import { useLocation } from 'react-router-dom-v5-compat';
 
 import { DataSourceSettings, GrafanaTheme2 } from '@grafana/data';
 import { config } from '@grafana/runtime';
-import { EmptyState, LinkButton, TextLink, useStyles2 } from '@grafana/ui';
+// import { EmptyState, LinkButton, TextLink, useStyles2 } from '@grafana/ui';
+import { EmptyState, LinkButton, useStyles2 } from '@grafana/ui';
 import { contextSrv } from 'app/core/core';
 import { Trans, t } from 'app/core/internationalization';
 import { StoreState, AccessControlAction, useSelector } from 'app/types';
@@ -77,12 +78,12 @@ export function DataSourcesListView({
       >
         <Trans i18nKey="data-source-list.empty-state.pro-tip">
           You can also define data sources through configuration files.{' '}
-          <TextLink
+          {/* <TextLink
             external
             href="http://docs.grafana.org/administration/provisioning/?utm_source=grafana_ds_list#data-sources"
           >
             Learn more
-          </TextLink>
+          </TextLink> */}
         </Trans>
       </EmptyState>
     );

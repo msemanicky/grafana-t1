@@ -1,11 +1,11 @@
-import { reportInteraction } from '@grafana/runtime';
-import { Space, TextLink } from '@grafana/ui';
-import { Trans } from 'app/core/internationalization';
+// import { reportInteraction } from '@grafana/runtime';
+// import { Space, TextLink } from '@grafana/ui';
+// import { Trans } from 'app/core/internationalization';
 
 export const RoadmapLinks = () => {
   return (
     <div>
-      <Space v={2} />
+      {/* <Space v={2} />
       <TextLink
         href="https://github.com/grafana/grafana/issues/new?assignees=&labels=area%2Fdatasource%2Ctype%2Fnew-plugin-request&projects=&template=3-data_source_request.yaml&title=%5BNew+Data+Source%5D%3A+%3Cname-of-service%3E"
         onClick={() => reportInteraction('connections_data_source_request_clicked')}
@@ -20,7 +20,7 @@ export const RoadmapLinks = () => {
         external
       >
         <Trans i18nKey="connections.connect-data.roadmap">View roadmap</Trans>
-      </TextLink>
+      </TextLink> */}
     </div>
   );
 };
