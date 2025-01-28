@@ -4,7 +4,6 @@ import (
 	"github.com/grafana/grafana/pkg/login/social"
 	ac "github.com/grafana/grafana/pkg/services/accesscontrol"
 	"github.com/grafana/grafana/pkg/services/accesscontrol/ssoutils"
-	"github.com/grafana/grafana/pkg/services/cloudmigration"
 	contextmodel "github.com/grafana/grafana/pkg/services/contexthandler/model"
 	"github.com/grafana/grafana/pkg/services/correlations"
 	"github.com/grafana/grafana/pkg/services/featuremgmt"
@@ -35,12 +34,12 @@ func (s *ServiceImpl) getAdminNode(c *contextmodel.ReqContext) (*navtree.NavLink
 	}
 	if hasAccess(ac.EvalPermission(ac.ActionSettingsRead, ac.ScopeSettingsAll)) {
 		generalNodeLinks = append(generalNodeLinks, &navtree.NavLink{
-			Text: "Settings", SubTitle: "View the settings defined in your Grafana config", Id: "server-settings", Url: s.cfg.AppSubURL + "/admin/settings", Icon: "sliders-v-alt",
+			Text: "Settings", SubTitle: "View the settings defined in your config", Id: "server-settings", Url: s.cfg.AppSubURL + "/admin/settings", Icon: "sliders-v-alt",
 		})
 	}
 	if hasGlobalAccess(orgsAccessEvaluator) {
 		generalNodeLinks = append(generalNodeLinks, &navtree.NavLink{
-			Text: "Organizations", SubTitle: "Isolated instances of Grafana running on the same server", Id: "global-orgs", Url: s.cfg.AppSubURL + "/admin/orgs", Icon: "building",
+			Text: "Organizations", SubTitle: "Isolated instances running on the same server", Id: "global-orgs", Url: s.cfg.AppSubURL + "/admin/orgs", Icon: "building",
 		})
 	}
 	if s.features.IsEnabled(ctx, featuremgmt.FlagFeatureToggleAdminPage) && hasAccess(ac.EvalPermission(ac.ActionFeatureManagementRead)) {
@@ -61,18 +60,18 @@ func (s *ServiceImpl) getAdminNode(c *contextmodel.ReqContext) (*navtree.NavLink
 			Url:      s.cfg.AppSubURL + "/admin/storage",
 		})
 	}
-	if hasAccess(cloudmigration.MigrationAssistantAccess) && s.features.IsEnabled(ctx, featuremgmt.FlagOnPremToCloudMigrations) {
-		generalNodeLinks = append(generalNodeLinks, &navtree.NavLink{
-			Text:     "Migrate to Grafana Cloud",
-			Id:       "migrate-to-cloud",
-			SubTitle: "Copy configuration from your self-managed installation to a cloud stack",
-			Url:      s.cfg.AppSubURL + "/admin/migrate-to-cloud",
-		})
-	}
+	// if hasAccess(cloudmigration.MigrationAssistantAccess) && s.features.IsEnabled(ctx, featuremgmt.FlagOnPremToCloudMigrations) {
+	// 	generalNodeLinks = append(generalNodeLinks, &navtree.NavLink{
+	// 		Text:     "Migrate to Grafana Cloud",
+	// 		Id:       "migrate-to-cloud",
+	// 		SubTitle: "Copy configuration from your self-managed installation to a cloud stack",
+	// 		Url:      s.cfg.AppSubURL + "/admin/migrate-to-cloud",
+	// 	})
+	// }
 
 	generalNode := &navtree.NavLink{
 		Text:     "General",
-		SubTitle: "Manage default preferences and settings across Grafana",
+		SubTitle: "Manage default preferences and settings",
 		Id:       navtree.NavIDCfgGeneral,
 		Url:      "/admin/general",
 		Icon:     "shield",
@@ -90,7 +89,7 @@ func (s *ServiceImpl) getAdminNode(c *contextmodel.ReqContext) (*navtree.NavLink
 		pluginsNodeLinks = append(pluginsNodeLinks, &navtree.NavLink{
 			Text:     "Plugins",
 			Id:       "plugins",
-			SubTitle: "Extend the Grafana experience with plugins",
+			SubTitle: "Extend the experience with plugins",
 			Icon:     "plug",
 			Url:      s.cfg.AppSubURL + "/plugins",
 		})
@@ -109,7 +108,7 @@ func (s *ServiceImpl) getAdminNode(c *contextmodel.ReqContext) (*navtree.NavLink
 		pluginsNodeLinks = append(pluginsNodeLinks, &navtree.NavLink{
 			Text:     "Extensions",
 			Icon:     "plug",
-			SubTitle: "Extend the UI of plugins and Grafana",
+			SubTitle: "Extend the UI of plugins",
 			Id:       "extensions",
 			Url:      s.cfg.AppSubURL + "/admin/extensions",
 		})
@@ -131,7 +130,7 @@ func (s *ServiceImpl) getAdminNode(c *contextmodel.ReqContext) (*navtree.NavLink
 	accessNodeLinks := []*navtree.NavLink{}
 	if hasAccess(ac.EvalAny(ac.EvalPermission(ac.ActionOrgUsersRead), ac.EvalPermission(ac.ActionUsersRead, ac.ScopeGlobalUsersAll))) {
 		accessNodeLinks = append(accessNodeLinks, &navtree.NavLink{
-			Text: "Users", SubTitle: "Manage users in Grafana", Id: "global-users", Url: s.cfg.AppSubURL + "/admin/users", Icon: "user",
+			Text: "Users", SubTitle: "Manage users", Id: "global-users", Url: s.cfg.AppSubURL + "/admin/users", Icon: "user",
 		})
 	}
 	if hasAccess(ac.TeamsAccessEvaluator) {
@@ -147,7 +146,7 @@ func (s *ServiceImpl) getAdminNode(c *contextmodel.ReqContext) (*navtree.NavLink
 		accessNodeLinks = append(accessNodeLinks, &navtree.NavLink{
 			Text:     "Service accounts",
 			Id:       "serviceaccounts",
-			SubTitle: "Use service accounts to run automated workloads in Grafana",
+			SubTitle: "Use service accounts to run automated workloads",
 			Icon:     "gf-service-account",
 			Url:      s.cfg.AppSubURL + "/org/serviceaccounts",
 		})
@@ -160,7 +159,7 @@ func (s *ServiceImpl) getAdminNode(c *contextmodel.ReqContext) (*navtree.NavLink
 		accessNodeLinks = append(accessNodeLinks, &navtree.NavLink{
 			Text:     "API keys",
 			Id:       "apikeys",
-			SubTitle: "Manage and create API keys that are used to interact with Grafana HTTP APIs",
+			SubTitle: "Manage and create API keys that are used to interact with HTTP APIs",
 			Icon:     "key-skeleton-alt",
 			Url:      s.cfg.AppSubURL + "/org/apikeys",
 		})
@@ -175,7 +174,7 @@ func (s *ServiceImpl) getAdminNode(c *contextmodel.ReqContext) (*navtree.NavLink
 		accessNodeLinks = append(accessNodeLinks, &navtree.NavLink{
 			Text:     "External group sync",
 			Id:       "groupsync",
-			SubTitle: "Manage mappings of Identity Provider groups to Grafana Roles",
+			SubTitle: "Manage mappings of Identity Provider groups to Roles",
 			Icon:     "",
 			Url:      s.cfg.AppSubURL + "/admin/access/groupsync",
 		})

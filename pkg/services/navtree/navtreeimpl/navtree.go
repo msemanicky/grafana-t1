@@ -81,24 +81,24 @@ func (s *ServiceImpl) GetNavTree(c *contextmodel.ReqContext, prefs *pref.Prefere
 	hasAccess := ac.HasAccess(s.accessControl, c)
 	treeRoot := &navtree.NavTreeRoot{}
 
-	// treeRoot.AddSection(s.getHomeNode(c, prefs))
+	treeRoot.AddSection(s.getHomeNode(c, prefs))
 
-	// if hasAccess(ac.EvalPermission(dashboards.ActionDashboardsRead)) {
-	// 	starredItemsLinks, err := s.buildStarredItemsNavLinks(c)
-	// 	if err != nil {
-	// 		return nil, err
-	// 	}
+	if hasAccess(ac.EvalPermission(dashboards.ActionDashboardsRead)) {
+		starredItemsLinks, err := s.buildStarredItemsNavLinks(c)
+		if err != nil {
+			return nil, err
+		}
 
-	// 	treeRoot.AddSection(&navtree.NavLink{
-	// 		Text:           "Starred",
-	// 		Id:             "starred",
-	// 		Icon:           "star",
-	// 		SortWeight:     navtree.WeightSavedItems,
-	// 		Children:       starredItemsLinks,
-	// 		EmptyMessageId: "starred-empty",
-	// 		Url:            s.cfg.AppSubURL + "/dashboards?starred",
-	// 	})
-	// }
+		treeRoot.AddSection(&navtree.NavLink{
+			Text:           "Starred",
+			Id:             "starred",
+			Icon:           "star",
+			SortWeight:     navtree.WeightSavedItems,
+			Children:       starredItemsLinks,
+			EmptyMessageId: "starred-empty",
+			Url:            s.cfg.AppSubURL + "/dashboards?starred",
+		})
+	}
 
 	if c.IsPublicDashboardView() || hasAccess(ac.EvalAny(
 		ac.EvalPermission(dashboards.ActionFoldersRead), ac.EvalPermission(dashboards.ActionFoldersCreate),
@@ -149,12 +149,15 @@ func (s *ServiceImpl) GetNavTree(c *contextmodel.ReqContext, prefs *pref.Prefere
 		treeRoot.AddSection(connectionsSection)
 	}
 
-	orgAdminNode, err := s.getAdminNode(c)
-
-	if orgAdminNode != nil && len(orgAdminNode.Children) > 0 {
-		treeRoot.AddSection(orgAdminNode)
-	} else if err != nil {
-		return nil, err
+	if c.IsSignedIn {
+		if c.SignedInUser.HasRole(org.RoleAdmin) {
+			orgAdminNode, err := s.getAdminNode(c)
+			if orgAdminNode != nil && len(orgAdminNode.Children) > 0 {
+				treeRoot.AddSection(orgAdminNode)
+			} else if err != nil {
+				return nil, err
+			}
+		}
 	}
 
 	s.addHelpLinks(treeRoot, c)

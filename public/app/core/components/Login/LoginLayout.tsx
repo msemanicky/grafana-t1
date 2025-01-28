@@ -30,7 +30,7 @@ export const LoginLayout = ({ children, branding, isChangingPassword }: React.Pr
   const subTitle = branding?.loginSubtitle ?? Branding.GetLoginSubTitle();
   const loginTitle = branding?.loginTitle ?? Branding.LoginTitle;
   const loginBoxBackground = branding?.loginBoxBackground || Branding.LoginBoxBackground();
-  const loginLogo = branding?.loginLogo;
+  // const loginLogo = branding?.loginLogo;
   // const hideEdition = branding?.hideEdition ?? Branding.HideEdition;
 
   useEffect(() => setStartAnim(true), []);
